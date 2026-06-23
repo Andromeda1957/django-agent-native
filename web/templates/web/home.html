@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>django-agent-native</title>
+  {% load static %}
+</head>
+<body>
+  <main>
+    <!-- {{ greeting }} is auto-escaped by Django, which is why the XSS test in
+         web/tests/test_security.py passes. Never use |safe on untrusted input. -->
+    <h1 id="greeting">{{ greeting }}</h1>
+    <p>A secure-by-default, agent-native Django starter.</p>
+
+    {% if messages %}
+    <ul>
+      {% for message in messages %}<li>{{ message.text }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+
+    <p id="loaded-at"></p>
+  </main>
+
+  <script type="module" src="{% static 'web/js/main.js' %}"></script>
+</body>
+</html>

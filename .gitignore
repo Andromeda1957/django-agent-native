@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+/staticfiles/
+*.log
+
+# Secrets — never commit real environment values
+.env
+
+# Node
+node_modules/
+
+# Tooling caches
+.ruff_cache/
+.import_linter_cache/
+.semgrep/
+.mypy_cache/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+
+# NOTE: compiled TypeScript output under static/web/js/ IS committed on purpose.
+# CI's "generated assets are current" gate diffs it against a fresh build.

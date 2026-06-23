@@ -1,0 +1,10 @@
+[Unit]
+Description=Health check for webapp
+After=network.target
+
+[Service]
+Type=oneshot
+# Fails (non-zero) if the app does not respond, which surfaces in
+# `systemctl status webapp-health-monitor` and the journal. Adjust the URL/port
+# to match your nginx/app binding.
+ExecStart=/usr/bin/curl -fsS --max-time 10 http://127.0.0.1/ -o /dev/null

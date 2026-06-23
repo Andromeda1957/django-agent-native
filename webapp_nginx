@@ -1,0 +1,21 @@
+# Nginx site config for webapp. Copied to /etc/nginx/sites-available/webapp by
+# deploy.sh. Replace example.com with your domain. For TLS, run certbot after the
+# first HTTP deploy — it adds the 443 server block and HTTP->HTTPS redirect.
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    client_max_body_size 10M;
+
+    location /static/ {
+        alias /home/webapp_user/app/staticfiles/;
+        access_log off;
+        expires 30d;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/webapp_user/app/webapp.sock;
+    }
+}

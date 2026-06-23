@@ -1,0 +1,114 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type "deploy" to confirm production deployment.
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Verify deploy request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Require default branch and confirmation
+        env:
+          DEPLOY_CONFIRMATION: ${{ inputs.confirm }}
+        run: |
+          if [ "$DEPLOY_CONFIRMATION" != "deploy" ]; then
+            echo "::error::Manual deploy requires confirm=deploy."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_NAME" != "main" ] && [ "$GITHUB_REF_NAME" != "master" ]; then
+            echo "::error::Production deploys are restricted to the default branch."
+            exit 1
+          fi
+
+      - name: Require successful CI for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_id="$(
+            gh run list \
+              --repo "$GITHUB_REPOSITORY" \
+              --workflow ci.yml \
+              --commit "$GITHUB_SHA" \
+              --status success \
+              --json databaseId \
+              --jq '.[0].databaseId // empty'
+          )"
+          if [ -z "$run_id" ]; then
+            echo "::error::No successful CI run found for $GITHUB_SHA."
+            exit 1
+          fi
+          echo "Found successful CI run $run_id for $GITHUB_SHA."
+
+  deploy:
+    name: Deploy production
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: verify
+    environment: production
+
+    env:
+      DEBUG: "True"
+      IMPORT_LINTER_CMD: lint-imports
+      # Set these as repository/environment Variables (Settings -> Variables).
+      # deploy.sh falls back to placeholders if they are unset.
+      APP_NAME: ${{ vars.APP_NAME }}
+      REMOTE_HOST: ${{ vars.REMOTE_HOST }}
+      REMOTE_USER: ${{ vars.REMOTE_USER }}
+      REMOTE_DIR: ${{ vars.REMOTE_DIR }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install deploy dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install ruff==0.15.18 import-linter==2.12
+
+      - name: Configure SSH
+        env:
+          PROD_SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          PROD_SSH_KNOWN_HOSTS: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
+        run: |
+          if [ -z "$PROD_SSH_PRIVATE_KEY" ]; then
+            echo "::error::Missing PROD_SSH_PRIVATE_KEY secret."
+            exit 1
+          fi
+          if [ -z "$PROD_SSH_KNOWN_HOSTS" ]; then
+            echo "::error::Missing PROD_SSH_KNOWN_HOSTS secret."
+            exit 1
+          fi
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$PROD_SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$PROD_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Verify production SSH access
+        run: ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$REMOTE_HOST" 'printf deploy-ssh-ok'
+
+      - name: Deploy
+        run: ./deploy.sh

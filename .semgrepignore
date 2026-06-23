@@ -1,0 +1,9 @@
+# Paths excluded from ad hoc whole-repo Semgrep scans. CI scans explicit source
+# paths, so this mainly keeps dependency, generated, and runtime material out of
+# local scans.
+.venv/
+node_modules/
+static/web/js/
+**/migrations/**
+db.sqlite3
+staticfiles/

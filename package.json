@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build:js": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --pretty false"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

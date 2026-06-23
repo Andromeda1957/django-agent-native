@@ -1,0 +1,8 @@
+# Base runtime dependencies. Deliberately minimal. Risk-bearing features
+# (accounts, 2FA, REST API) are opt-in and add their own dependencies when you
+# enable them; see the README.
+Django
+django-environ
+psycopg2-binary
+gunicorn
+argon2-cffi

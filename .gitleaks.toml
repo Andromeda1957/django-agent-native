@@ -1,0 +1,6 @@
+# Secret-scanning config for Gitleaks (runs in pre-commit and CI).
+# Uses the full default ruleset. Add narrow allowlists here only for confirmed
+# false positives (e.g. example keys in tests), with a description explaining why
+# the match is safe.
+[extend]
+useDefault = true
