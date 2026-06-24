@@ -1,0 +1,8 @@
+# Dev-only tooling for the local and CI quality gates. Pinned for reproducible
+# gate behavior; Dependabot proposes upgrades. Never installed on the server.
+-c constraints.txt
+
+ruff==0.15.18
+import-linter==2.12
+pip-audit==2.10.1
+semgrep==1.167.0

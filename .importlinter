@@ -1,0 +1,20 @@
+# Architecture boundary contracts, enforced with `import-linter` (run:
+# `lint-imports`). Dev-only; never shipped or imported at runtime.
+#
+# This single example contract enforces the core layering rule: the service
+# layer holds business logic and must not depend on the view/form layer, so the
+# dependency direction can only be views -> services. Add your own contracts as
+# the app grows — see https://import-linter.readthedocs.io/.
+
+[importlinter]
+root_packages =
+    config
+    web
+
+[importlinter:contract:1]
+name = web services stay independent of views and forms
+type = forbidden
+source_modules =
+    web.services
+forbidden_modules =
+    web.views

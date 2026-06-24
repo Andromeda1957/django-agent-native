@@ -1,0 +1,38 @@
+# Nginx site config for webapp. Copied to /etc/nginx/sites-available/webapp by
+# deploy.sh. Replace example.com with your domain. For TLS, run certbot after the
+# first HTTP deploy — it adds the 443 server block and HTTP->HTTPS redirect.
+
+# Rate limiting (secure by default), keyed on client IP. The admin-login limiter
+# protects Django's admin against brute force; the global limiter is a baseline
+# flood guard on dynamic routes (static files are served from a separate location
+# and are not limited). Tune the rates to your traffic. When you enable accounts
+# or a REST API, add feature-specific zones — see the README opt-in recipes.
+map "$request_method:$uri" $admin_login_key {
+    default "";
+    "~^POST:/admin/login/$" $binary_remote_addr;
+}
+
+limit_req_zone $admin_login_key zone=admin_login:10m rate=6r/m;
+limit_req_zone $binary_remote_addr zone=global:10m rate=120r/m;
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    server_tokens off;
+    client_max_body_size 10M;
+
+    location /static/ {
+        alias /home/webapp_user/app/staticfiles/;
+        access_log off;
+        expires 30d;
+    }
+
+    location / {
+        limit_req_status 429;
+        limit_req zone=admin_login burst=6 nodelay;
+        limit_req zone=global burst=60 nodelay;
+        include proxy_params;
+        proxy_pass http://unix:/home/webapp_user/app/webapp.sock;
+    }
+}

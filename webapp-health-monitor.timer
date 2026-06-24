@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the webapp health check periodically
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Boundary Review"
+  short_description: "Review domain boundaries and monolith drift"
+  default_prompt: "Use $architecture-boundary-review to review this repository for monolith drift, weak domain separation, and maintainability risks."

@@ -1,0 +1,29 @@
+[Unit]
+Description=gunicorn daemon for webapp
+After=network.target
+
+[Service]
+User=webapp_user
+Group=www-data
+WorkingDirectory=/home/webapp_user/app
+ExecStart=/home/webapp_user/app/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --timeout 120 \
+          --bind unix:/home/webapp_user/app/webapp.sock \
+          config.wsgi:application
+Restart=always
+RestartSec=5
+
+# Hardening (secure by default). ProtectHome stays false because the app lives
+# under /home; tighten to read-only if you relocate it outside /home.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=false
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

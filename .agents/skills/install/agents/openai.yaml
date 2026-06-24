@@ -1,0 +1,4 @@
+interface:
+  display_name: "Install django-agent-native"
+  short_description: "Configure a fresh clone: env, GitHub, CI/CD, deploy"
+  default_prompt: "Use $install to set up this django-agent-native clone: local env, GitHub repo, CI/CD, and deploy target."

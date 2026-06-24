@@ -1,0 +1,18 @@
+# Dev-only lint/format config. Not shipped to the server; never imported at
+# runtime.
+line-length = 100
+
+extend-exclude = [
+    ".venv",
+    "**/migrations/**",
+    "static/web/js",
+]
+
+[lint]
+# E4/E7/E9/F: core errors. I: import sorting. B: bug-prone patterns.
+# C4: comprehension perf. ASYNC: async pitfalls.
+select = ["E4", "E7", "E9", "F", "I", "B", "C4", "ASYNC"]
+
+[lint.isort]
+force-single-line = true
+known-first-party = ["config", "web"]

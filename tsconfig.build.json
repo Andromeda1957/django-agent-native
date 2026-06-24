@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "static/web/js",
+    "rootDir": "static/web/ts"
+  }
+}
