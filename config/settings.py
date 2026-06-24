@@ -1,5 +1,5 @@
 """
-Django settings for the django-agent-native starter.
+Django settings for the django-agent-ready-template starter.
 
 Secure by default: DEBUG is off unless explicitly enabled, secrets come from the
 environment (never the repo), and production security headers turn on

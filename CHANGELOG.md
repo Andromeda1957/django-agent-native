@@ -5,6 +5,10 @@ history; it never overrides current state (see `AGENTS.md` → Source Of Truth).
 
 ## Unreleased
 
+- Renamed the reusable template identity from `django-agent-native` to
+  `django-agent-ready-template` across docs, agent instructions, demo metadata,
+  and package metadata to avoid confusion with the separate `agent-native`
+  project.
 - Pinned runtime Python dependencies, added a checked-in `constraints.txt` for
   reproducible Python installs, routed CI/deploy/manual setup through the
   constraints workflow, pinned GitHub Actions to full commit SHAs, and updated
@@ -18,7 +22,7 @@ history; it never overrides current state (see `AGENTS.md` → Source Of Truth).
 - Added template operating modes: `AGENTS.md` distinguishes "building a site"
   from "maintaining the template", `docs/MAINTAINING.md` holds the maintainer
   playbook, and `/install` strips both when finalizing a clone as a real project.
-- Initial django-agent-native starter: secure-by-default Django 6 project with a
+- Initial django-agent-ready-template starter: secure-by-default Django 6 project with a
   minimal demo app (`web`), the full local + CI quality-gate suite (Gitleaks,
   Ruff, import-linter, project SAST, Semgrep, pip-audit, npm audit, memory-system
   check), the agent operating contract and memory system (AGENTS/CLAUDE/GEMINI,

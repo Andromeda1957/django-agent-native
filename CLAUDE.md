@@ -1,9 +1,9 @@
-# django-agent-native // Agent Operating Contract
+# django-agent-ready-template // Agent Operating Contract
 
-This repository is a secure-by-default, agent-native Django starter. Clone it,
-run the `/install` skill to wire it to your hosting, then tell your agent what to
-build. This file is the small, stable agent contract: it defines how agents
-behave, not what the site does.
+This repository is a secure-by-default, AI-agent-ready Django template. Clone
+it, run the `/install` skill to wire it to your hosting, then tell your agent
+what to build. This file is the small, stable agent contract: it defines how
+agents behave, not what the site does.
 
 ## Operating Modes
 
@@ -13,7 +13,7 @@ This repo has two modes. Identify which one you are in before acting.
   your own project. Run the `/install` skill, then build. `/install` finalizes the
   repo as your project and removes this section and `docs/MAINTAINING.md`.
 - **Maintaining the template itself**: you are working in the upstream
-  `django-agent-native` source. Do not run `/install`. Follow
+  `django-agent-ready-template` source. Do not run `/install`. Follow
   `docs/MAINTAINING.md`, because changes here propagate to everyone who clones the
   template — keep everything generic, secure, and coherent.
 

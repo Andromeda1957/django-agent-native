@@ -1,16 +1,16 @@
-# Maintaining django-agent-native
+# Maintaining django-agent-ready-template
 
 Read this when you are working on **the template itself** (the upstream
-`django-agent-native` source), not on a site built from it. If `/install` has run
-and `origin` is your own project repo, you are NOT in this mode — ignore this
-file (a built project deletes it during `/install`).
+`django-agent-ready-template` source), not on a site built from it. If
+`/install` has run and `origin` is your own project repo, you are NOT in this
+mode — ignore this file (a built project deletes it during `/install`).
 
 Everything you change here propagates to everyone who clones the template. The
 template's value is that it stays generic, secure, and coherent. Maintain that.
 
 ## What this template is
 
-A secure-by-default, agent-native Django starter. The differentiator is the
+A secure-by-default, AI-agent-ready Django template. The differentiator is the
 **agent operating system** (contract, runbooks, memory system, enforcement
 gates), not the Django boilerplate. The example `web` app is throwaway scaffolding
 that exists only to exercise the gates on a fresh clone.

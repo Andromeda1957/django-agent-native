@@ -1,13 +1,13 @@
 ---
 name: install
 description: >-
-  Install and configure a fresh django-agent-native clone: set up the local
+  Install and configure a fresh django-agent-ready-template clone: set up the local
   environment, wire the GitHub repo and CI/CD, configure the deploy target, and
   validate the whole setup. Use right after cloning the template, or to re-run
   and repair a partial/interrupted install. Idempotent: safe to run again.
 ---
 
-# Install django-agent-native
+# Install django-agent-ready-template
 
 This skill turns a fresh clone into a working, deployable project. It is the
 "installer". It is idempotent: on a re-run, detect what is already done, validate

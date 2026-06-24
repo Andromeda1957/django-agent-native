@@ -1,4 +1,5 @@
 {
+  "name": "django-agent-ready-template",
   "private": true,
   "scripts": {
     "build:js": "tsc -p tsconfig.build.json",

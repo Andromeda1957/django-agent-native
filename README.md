@@ -1,6 +1,6 @@
-# django-agent-native
+# django-agent-ready-template
 
-A secure-by-default, **agent-native** Django starter. Clone it, run the
+A secure-by-default, **AI-agent-ready** Django template. Clone it, run the
 `/install` skill with your coding agent, then tell the agent what to build. The
 production scaffolding — quality gates, CI/CD, security controls, deploy, and a
 repo-backed memory system that keeps agents coherent across sessions — is already
