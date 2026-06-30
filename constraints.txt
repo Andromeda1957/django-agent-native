@@ -50,7 +50,7 @@ opentelemetry-instrumentation-requests==0.58b0
 opentelemetry-instrumentation-threading==0.58b0
 opentelemetry-proto==1.37.0
 opentelemetry-sdk==1.37.0
-opentelemetry-semantic-conventions==0.58b0
+opentelemetry-semantic-conventions==0.64b0
 opentelemetry-util-http==0.58b0
 packageurl-python==0.17.6
 packaging==26.2
