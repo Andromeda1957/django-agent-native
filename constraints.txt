@@ -34,7 +34,7 @@ httpx==0.28.1
 httpx-sse==0.4.3
 idna==3.18
 import-linter==2.12
-importlib_metadata==8.7.1
+importlib_metadata==9.0.0
 jsonschema==4.25.1
 jsonschema-specifications==2025.9.1
 license-expression==30.4.4
