@@ -54,7 +54,7 @@ opentelemetry-semantic-conventions==0.58b0
 opentelemetry-util-http==0.58b0
 packageurl-python==0.17.6
 packaging==26.2
-peewee==3.19.0
+peewee==4.1.1
 pip==26.1.2
 pip-api==0.0.34
 pip-requirements-parser==32.0.1
